@@ -73,40 +73,35 @@ int main(int argc, char *argv[])
         map[set[i]] = 1;
     }
 
-    max = set[nset-1];
+    max = set[nset-1]/(n-1);
     nsol = 0;
-    for (i = 0; i < nset; i++)
+    for (i = 1; i <= max; i++)
     {
-        for (j = i + 1; j < nset; j++)
+        for (j = 0; j < nset; j++)
         {
-            x = set[i];
-            y = set[j] - set[i];
-            if (x + y*(n - 1) <= max)
+            x = set[j];
+            flag = 0;
+            if (x+(n-1)*i < 125001)
             {
                 flag = 1;
-                for (k = 2; k < n; k++)
+                for (k = n - 1; k; k--)
                 {
-                    if (!map[x + k*y])
+                    if (!map[x+k*i])
                     {
                         flag = 0;
                         break;
                     }
                 }
-                if (flag)
-                {
-                    sol[nsol].a = x;
-                    sol[nsol].b = y;
-                    nsol++;
-                }
+            }
+
+            if (flag)
+            {
+                nsol++;
+                fprintf(fout, "%d %d\n", x, i);
             }
         }
     }
 
-    qsort(sol, nsol, sizeof(result), cmp_result);
-    for (i = 0; i < nsol; i++)
-    {
-        fprintf(fout, "%d %d\n", sol[i].a, sol[i].b);
-    }
     if (!nsol)
     {
         fprintf(fout, "NONE\n");
