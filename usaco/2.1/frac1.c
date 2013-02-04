@@ -12,6 +12,15 @@ LANG: C
  * @date 2012-12-18 01:35:12
  */
 
+/**
+ * Idea
+ * 0/1                               1/1
+ *                 1/2
+ *        1/3               2/3
+ *    1/4     2/5      3/5       3/4
+ *
+ *    by add the  numerators and denominators
+ */
 #include <stdlib.h>
 #include <stdio.h>
 FILE *fin, *fout;
