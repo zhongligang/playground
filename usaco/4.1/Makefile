@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=$(OCFLAGS)-DDEBUG
-fence8: fence8.c
+cryptcow: cryptcow.c
 .PHONY: clean
 clean: 
-	rm -f fence8 fence8.in fence8.out
+	rm -f cryptcow cryptcow.in cryptcow.out
 
