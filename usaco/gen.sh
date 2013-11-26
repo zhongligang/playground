@@ -25,11 +25,17 @@ LANG: C
 
 int main(int argc, char** argv) {
     FILE *fin, *fout;
-    fin = fopen(\"$1.in\", \"r\");
+    if ((fin = fopen(\"$1.in\", \"r\")) == NULL) {
+        perror(\"Fail open $1.in\");
+        return 1;
+    }
 #ifdef DEBUG
     fout = stdout;
 #else
-    fout = fopen(\"$1.out\", \"w\");
+    if ((fout = fopen(\"$1.out\", \"w\")) == NULL) {
+        perror(\"Fail open $1.out\");
+        return 1;
+    }
 #endif
 
     return 0;
@@ -40,9 +46,10 @@ int main(int argc, char** argv) {
 
 echo "\
 CC=gcc
-CFLAGS=\$(OCFLAGS)-DDEBUG
+CFLAGS=\$(OCFLAGS)-DDEBUG -g
 $1: $1.c
 .PHONY: clean
 clean: 
 \trm -f $1 $1.in $1.out
+\trm -rf $1.dSYM
 " > Makefile
